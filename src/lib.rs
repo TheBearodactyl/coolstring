@@ -1,6 +1,53 @@
 use std::ops::{Add, AddAssign, Index, Mul, MulAssign, Range, RangeFull, Sub, SubAssign};
 
+#[derive(Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CoolString(pub String);
+
+impl CoolString {
+    pub fn new() -> Self {
+        CoolString(String::new())
+    }
+
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+
+    pub fn into_string(self) -> String {
+        self.0
+    }
+
+    pub fn remove(&mut self, sub: &str) {
+        self.0 = self.0.replace(sub, "");
+    }
+
+    pub fn replace_all(&mut self, from: &str, to: &str) {
+        self.0 = self.0.replace(from, to);
+    }
+
+    pub fn split(&self, delim: &str) -> Vec<CoolString> {
+        self.0
+            .split(delim)
+            .map(|s| CoolString(s.to_string()))
+            .collect()
+    }
+
+    pub fn remove_case_insensitive(&mut self, sub: &str) {
+        let lower = self.0.to_lowercase();
+        let target = sub.to_lowercase();
+        let mut result = String::new();
+        let mut i = 0;
+        while let Some(pos) = lower[i..].find(&target) {
+            result.push_str(&self.0[i..i + pos]);
+            i += pos + target.len();
+        }
+        result.push_str(&self.0[i..]);
+        self.0 = result;
+    }
+
+    pub fn repeat(&self, count: usize) -> CoolString {
+        CoolString(self.clone() * count)
+    }
+}
 
 impl Add for CoolString {
     type Output = String;
