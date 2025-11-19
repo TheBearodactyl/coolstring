@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "coolimpls"
+name = "coolstring"
 version = "0.1.0"
