@@ -1,4 +1,8 @@
-use std::ops::{Add, AddAssign, Index, Mul, MulAssign, Range, RangeFull, Sub, SubAssign};
+use std::{
+    fmt,
+    ops::{Add, AddAssign, Deref, Index, Mul, MulAssign, Range, RangeFull, Sub, SubAssign},
+    str::FromStr,
+};
 
 #[derive(Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CoolString(pub String);
@@ -46,6 +50,32 @@ impl CoolString {
 
     pub fn repeat(&self, count: usize) -> CoolString {
         CoolString(self.clone() * count)
+    }
+}
+
+impl Deref for CoolString {
+    type Target = str;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl fmt::Display for CoolString {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+impl fmt::Debug for CoolString {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+impl FromStr for CoolString {
+    type Err = std::convert::Infallible;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(CoolString(s.to_string()))
     }
 }
 
