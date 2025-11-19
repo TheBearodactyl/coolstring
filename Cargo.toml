@@ -1,0 +1,12 @@
+[package]
+name = "coolstring"
+version = "0.1.0"
+edition = "2024"
+description = "A string type which implements a bunch of operators"
+keywords = ["string", "wrapper", "type", "operators"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/TheBearodactyl/coolstring"
+repository = "https://github.com/TheBearodactyl/coolstring"
+
+[dependencies]
